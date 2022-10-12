@@ -1,3 +1,4 @@
+from sqlalchemy import ForeignKey
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from remotejob import login_manager, db
@@ -22,3 +23,14 @@ class User(db.Model, UserMixin):
 
     def check_password(self,password):
         return check_password_hash(self.password_hash,password)
+
+class ExpToken(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    token_code = db.Column(db.String(256))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), unique=True, index=True)
+    exp = db.Column(db.DateTime)
+
+    def __init__(self, token_code, user_id, exp):
+        self.token_code = token_code
+        self.user_id = user_id
+        self.exp = exp  
