@@ -13,11 +13,11 @@ app = Flask(__name__)
 # Often people will also separate these into a separate config.py file
 app.config['SECRET_KEY'] = 'mysecretkey'
 basedir = os.path.abspath(os.path.dirname(__file__))
-if os.environ.get('DEBUG')=="1":
-    app.config['SQLALCHEMY_DATABASE_URI'] = DEV_DB
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = PROD_DB
-
+# if os.environ.get('DEBUG')=="1":
+#     app.config['SQLALCHEMY_DATABASE_URI'] = DEV_DB
+# else:
+#     app.config['SQLALCHEMY_DATABASE_URI'] = PROD_DB
+app.config['SQLALCHEMY_DATABASE_URI'] = DEV_DB
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
